@@ -54,8 +54,8 @@ export default function Navbar() {
       <nav
         className={`nav-glass transition-all duration-500 ${
           scrolled
-            ? "bg-[#D6EBEE]/75 backdrop-blur-xl shadow-[0_10px_36px_-14px_rgba(26,128,157,0.2)]"
-            : "bg-[#E2F4F7]/55 backdrop-blur-md"
+            ? "bg-[#8BA6B4]/88 backdrop-blur-xl shadow-[0_12px_38px_-14px_rgba(31,59,104,0.34)]"
+            : "bg-[#9DB6C2]/82 backdrop-blur-md"
         }`}
       >
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
@@ -72,7 +72,7 @@ export default function Navbar() {
               <span className="text-sm font-semibold text-steel tracking-wide group-hover:text-navy transition-colors">
                 电子爱好者协会
               </span>
-              <span className="hidden sm:block text-[11px] text-steel/50">
+              <span className="hidden sm:block text-[11px] text-steel/70">
                 河南城建学院 · HUUC
               </span>
             </span>
@@ -130,7 +130,7 @@ export default function Navbar() {
             menuOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="px-5 pb-5 pt-1 flex flex-col gap-1 bg-[#E2F4F7]/70 backdrop-blur-xl">
+          <div className="px-5 pb-5 pt-1 flex flex-col gap-1 bg-[#9DB6C2]/88 backdrop-blur-xl">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}

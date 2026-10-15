@@ -23,14 +23,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 导航栏浅青色毛玻璃 */
+/* 导航栏青蓝灰毛玻璃：加深底色以与白色页面分隔 */
 .nav-glass {
-  background: rgba(226, 244, 247, 0.55);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: rgba(148, 177, 191, 0.82);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-top: none;
-  box-shadow: 0 8px 30px -12px rgba(26, 128, 157, 0.14);
+  box-shadow: 0 10px 34px -12px rgba(31, 59, 104, 0.28);
   /* 底部两角小圆弧，呈微收拢感 */
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 14px;
