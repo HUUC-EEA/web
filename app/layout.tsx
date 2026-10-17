@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/noto-sans-sc";
-import "@fontsource/press-start-2p";
-import "@fontsource/silkscreen";
-import "@fontsource/vt323";
 import "@fontsource/share-tech-mono";
 import "./fonts/smiley-sans.css";
 import Navbar from "./components/Navbar";
@@ -23,6 +20,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="zh-CN"
       className="h-full antialiased scroll-smooth"
     >
+      {/* 首屏导航栏 / Hero 立即用到的像素字体子集，提前发起请求避免 swap 闪烁 */}
+      <link
+        rel="preload"
+        href="/fonts/fusion-pixel-12px-proportional-sc.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
       <body className="min-h-full flex flex-col bg-term text-neutral-300">
         <TerminalBackdrop />
         <Navbar />

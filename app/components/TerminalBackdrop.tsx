@@ -225,49 +225,69 @@ export default function TerminalBackdrop() {
       return;
     }
 
-    const streams = [
-      leftRef.current ? new BinaryStream(leftRef.current, -1, "y") : null,
-      rightRef.current ? new BinaryStream(rightRef.current, 1, "y") : null,
-      topRef.current ? new BinaryStream(topRef.current, 1, "x") : null,
-      bottomRef.current ? new BinaryStream(bottomRef.current, -1, "x") : null,
-    ].filter(Boolean) as BinaryStream[];
+    let stop: (() => void) | undefined;
 
-    const dynamics = { speed: 1, target: 1, glow: 0 };
-    let surgeTimer = 0;
-    let raf = 0;
+    // 背景数据流不与首屏渲染争主线程：等浏览器空闲再初始化 Canvas 与循环
+    const start = () => {
+      const streams = [
+        leftRef.current ? new BinaryStream(leftRef.current, -1, "y") : null,
+        rightRef.current ? new BinaryStream(rightRef.current, 1, "y") : null,
+        topRef.current ? new BinaryStream(topRef.current, 1, "x") : null,
+        bottomRef.current ? new BinaryStream(bottomRef.current, -1, "x") : null,
+      ].filter(Boolean) as BinaryStream[];
 
-    const onScroll = () => {
-      // 滚动触发瞬间：14x 冲刺 + 高光，随后自然衰减
-      dynamics.target = 14;
-      dynamics.glow = 1;
-      clearTimeout(surgeTimer);
-      surgeTimer = window.setTimeout(() => {
-        dynamics.target = 1;
-        dynamics.glow = 0;
-      }, 420);
-    };
+      const dynamics = { speed: 1, target: 1, glow: 0 };
+      let surgeTimer = 0;
+      let raf = 0;
 
-    const loop = () => {
-      dynamics.speed += (dynamics.target - dynamics.speed) * 0.12;
-      if (modeRef.current !== "off") {
-        for (const stream of streams) stream.render(dynamics.speed, dynamics.glow);
-      }
+      const onScroll = () => {
+        // 滚动触发瞬间：14x 冲刺 + 高光，随后自然衰减
+        dynamics.target = 14;
+        dynamics.glow = 1;
+        clearTimeout(surgeTimer);
+        surgeTimer = window.setTimeout(() => {
+          dynamics.target = 1;
+          dynamics.glow = 0;
+        }, 420);
+      };
+
+      const loop = () => {
+        dynamics.speed += (dynamics.target - dynamics.speed) * 0.12;
+        if (modeRef.current !== "off") {
+          for (const stream of streams) stream.render(dynamics.speed, dynamics.glow);
+        }
+        raf = requestAnimationFrame(loop);
+      };
+
+      const onResize = () => {
+        for (const stream of streams) stream.resize();
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onResize);
       raf = requestAnimationFrame(loop);
+
+      stop = () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(surgeTimer);
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onResize);
+      };
     };
 
-    const onResize = () => {
-      for (const stream of streams) stream.resize();
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    raf = requestAnimationFrame(loop);
+    let idleId = 0;
+    let usedIdle = false;
+    if (typeof window.requestIdleCallback === "function") {
+      usedIdle = true;
+      idleId = window.requestIdleCallback(start, { timeout: 1500 });
+    } else {
+      idleId = window.setTimeout(start, 300);
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(surgeTimer);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      if (usedIdle) window.cancelIdleCallback(idleId);
+      else window.clearTimeout(idleId);
+      stop?.();
     };
   }, []);
 

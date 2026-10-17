@@ -1,6 +1,6 @@
 import SnapSection from "./components/SnapSection";
 import HeroTerminal from "./components/HeroTerminal";
-import NeofetchTerminal from "./components/NeofetchTerminal";
+import DeferredMount from "./components/DeferredMount";
 import PcbAbout from "./components/PcbAbout";
 import { JOIN_URL } from "./links";
 
@@ -45,9 +45,19 @@ export default function Home() {
         <HeroTerminal />
       </SnapSection>
 
-      {/* 系统配置：仿 Linux Konsole 的 neofetch 输出，滚动到此时逐字打出 */}
+      {/* 系统配置：仿 Linux Konsole 的 neofetch 输出，接近视口时才下载挂载 */}
       <SnapSection id="neofetch">
-        <NeofetchTerminal />
+        <DeferredMount
+          which="neofetch"
+          fallback={
+            <div className="w-full flex justify-center px-5 sm:px-8">
+              <div
+                aria-hidden="true"
+                className="linux-terminal-window min-h-[62vh] opacity-30"
+              />
+            </div>
+          }
+        />
       </SnapSection>
 
       {/* 关于我们：程序化生成的 PCB 蚀刻板 + 协会简介 */}

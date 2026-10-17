@@ -87,19 +87,6 @@ body {
   -webkit-font-smoothing: none;
 }
 
-/* 备选英文像素字体（仅拉丁字符），想对比时把 .font-pixel 换成下面任一个 */
-.font-pixel-arcade {
-  font-family: "Press Start 2P", ui-monospace, monospace;
-}
-
-.font-pixel-dot {
-  font-family: "Silkscreen", ui-monospace, monospace;
-}
-
-.font-pixel-crt {
-  font-family: "VT323", ui-monospace, monospace;
-}
-
 /* CRT 扫描线与暗角滤镜层 */
 .crt-overlay {
   background:

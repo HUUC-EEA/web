@@ -246,6 +246,11 @@ export default function HeroTerminal() {
      * 保证探针离开后乱码字符立即还原，ASCII 图案不会停留在损坏状态。
      */
     const loop = () => {
+      // 滚离首屏后停掉整条 rAF 循环，滚回时由 onScroll 恢复，避免为离屏区块空转
+      if (window.scrollY > window.innerHeight * 1.2) {
+        raf = 0;
+        return;
+      }
       mouse.smoothX += (mouse.normX - mouse.smoothX) * 0.08;
       mouse.smoothY += (mouse.normY - mouse.smoothY) * 0.08;
 
@@ -332,6 +337,12 @@ export default function HeroTerminal() {
 
     const onResize = () => cacheGridPositions();
 
+    const onScroll = () => {
+      if (!raf && window.scrollY <= window.innerHeight * 1.2) {
+        raf = requestAnimationFrame(loop);
+      }
+    };
+
     if (reduced) {
       uartEl.textContent = UART_HEADER_TEXT;
       subtitleEl.textContent = CHINESE_SUBTITLE;
@@ -345,6 +356,7 @@ export default function HeroTerminal() {
     window.addEventListener("mousemove", onMouseMove);
     document.documentElement.addEventListener("mouseleave", onMouseLeave);
     window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", onScroll, { passive: true });
     raf = requestAnimationFrame(loop);
 
     return () => {
@@ -353,6 +365,7 @@ export default function HeroTerminal() {
       window.removeEventListener("mousemove", onMouseMove);
       document.documentElement.removeEventListener("mouseleave", onMouseLeave);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
