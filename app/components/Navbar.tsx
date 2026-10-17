@@ -54,16 +54,16 @@ export default function Navbar() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38ef7d] opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-[#38ef7d]" />
           </span>
-          <span className="font-pixel text-xs sm:text-2xl tracking-[1px] sm:tracking-[2px] text-neutral-100 group-hover:text-white transition-colors">
-            河南城建学院电子爱好者协会
-          </span>
-          <span className="hidden lg:inline-flex font-pixel text-2xl px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[2px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
+          <span className="font-pixel text-xs sm:text-base px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[1px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
             HUUCEEA
+          </span>
+          <span className="font-pixel text-base sm:text-xl tracking-[1px] text-neutral-100 group-hover:text-white transition-colors">
+            电子爱好者协会
           </span>
         </Link>
 
-        {/* 桌面导航：菜单项用像素字体原生 12px，与 24px 品牌名形成层级差 */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-7 font-pixel text-xs">
+        {/* 桌面导航：菜单项 16px，比品牌名 20px 低一档 */}
+        <div className="hidden lg:flex items-center gap-5 xl:gap-7 font-pixel text-base">
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className="nav-item tracking-[1px] py-1">
               <span className="text-[#38ef7d]/70 mr-1">{link.num}</span>
@@ -74,7 +74,7 @@ export default function Navbar() {
             href={JOIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="join-cta-btn text-xs tracking-[1px] px-3 py-1.5 rounded"
+            className="join-cta-btn text-base tracking-[1px] px-3.5 py-1.5 rounded"
           >
             + 加入我们
           </a>
@@ -113,7 +113,7 @@ export default function Navbar() {
           menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 pb-4 pt-1 flex flex-col gap-1 font-pixel text-xs sm:text-2xl tracking-[1px] sm:tracking-[2px]">
+        <div className="px-4 pb-4 pt-1 flex flex-col gap-1 font-pixel text-xs sm:text-base tracking-[1px]">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}

@@ -236,6 +236,25 @@ body {
   );
 }
 
+/* 移动端改为上下两条横向数据流，填满顶底留白 */
+.binary-band-row {
+  height: 68px;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
 /* 单个 ASCII 字符节点：鼠标探针靠近时产生电磁偏移 */
 .ascii-char {
   display: inline-block;

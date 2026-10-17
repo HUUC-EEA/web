@@ -76,10 +76,8 @@ export default function Footer() {
           </span>
         </div>
 
-        <div className="mt-3 font-mono text-[11px] text-neutral-600 text-center sm:text-left">
-          <span className="font-cn">
-            网页制作人 <strong className="text-neutral-400">by-ShanyJin</strong>
-          </span>
+        <div className="mt-3 font-tech text-[11px] tracking-widest text-neutral-600 text-center sm:text-left">
+          SITE_BY: <strong className="text-neutral-400">ShanyJin</strong>
         </div>
       </div>
     </footer>
