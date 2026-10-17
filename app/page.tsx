@@ -1,7 +1,17 @@
 import SnapSection from "./components/SnapSection";
 import HeroTerminal from "./components/HeroTerminal";
 import NeofetchTerminal from "./components/NeofetchTerminal";
+import PcbAbout from "./components/PcbAbout";
 import { JOIN_URL } from "./links";
+
+const ABOUT_SPECS = [
+  { key: "AFFILIATION", cn: "电气工程学院 · 电子爱好者协会" },
+  { key: "LAB", cn: "2A109 实验室" },
+  { key: "ADVISOR", cn: "徐娟老师" },
+  { key: "FOCUS", cn: "嵌入式开发 · 硬件设计 · 技术讨论" },
+  { key: "EVENTS", cn: "下乡等电子爱好活动" },
+  { key: "VISION", cn: "打造学院与学校品牌 · 传播电子科技文化" },
+];
 
 const REPO_ENTRIES = [
   {
@@ -40,9 +50,9 @@ export default function Home() {
         <NeofetchTerminal />
       </SnapSection>
 
-      {/* 关于我们：内容未定，先留一个空的长条面板占位 */}
+      {/* 关于我们：程序化生成的 PCB 蚀刻板 + 协会简介 */}
       <SnapSection id="about">
-        <div className="w-full max-w-5xl mx-auto px-5 sm:px-8 py-20">
+        <div className="w-full max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
           <div className="font-tech text-xs sm:text-sm text-neutral-500 mb-3 flex items-center gap-2">
             <span className="text-[#38ef7d]">02.</span>
             <span>ABOUT_US</span>
@@ -52,10 +62,38 @@ export default function Home() {
             <span className="text-neutral-700 font-tech text-lg sm:text-2xl">/</span>
           </h2>
 
-          <div className="mt-8 min-h-[42vh] rounded border border-neutral-800/90 bg-black/40 shadow-[inset_0_0_40px_rgba(0,0,0,0.6)] flex items-center justify-center">
-            <span className="font-tech text-xs tracking-widest text-neutral-700">
-              CONTENT_PENDING
-            </span>
+          <div className="mt-8 grid gap-7 lg:gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+            <PcbAbout />
+
+            <div>
+              <p className="font-cn text-sm sm:text-base text-neutral-300 leading-relaxed">
+                电子爱好者协会是电气工程学院旗下的技术社团，也是学校为数不多以电子信息技术为主的协会。
+                我们背靠学院 <span className="text-[#38ef7d]">2A109 实验室</span>，
+                在指导老师 <span className="text-[#38ef7d]">徐娟老师</span> 的带领下，
+                为全校电子数码爱好者搭建一个交流平台：一起研究嵌入式开发、讨论技术难题，
+                也会组织下乡等各类电子爱好活动。
+              </p>
+              <p className="font-cn text-sm sm:text-base text-neutral-400 leading-relaxed mt-3">
+                我们的理念不止于校园——更想把社团打造成学院与学校的品牌，
+                加强校园网络和电子科技文化的传播与建设。欢迎各学院的技术人才加入我们。
+              </p>
+
+              <div className="mt-6 rounded border border-neutral-800/90 bg-black/40 divide-y divide-neutral-800/70">
+                {ABOUT_SPECS.map((row) => (
+                  <div
+                    key={row.key}
+                    className="px-4 py-2.5 flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-4"
+                  >
+                    <span className="font-tech text-[11px] tracking-widest text-[#00f5d4] shrink-0 sm:w-28">
+                      {row.key}
+                    </span>
+                    <span className="font-cn text-xs sm:text-sm text-neutral-400">
+                      {row.cn}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </SnapSection>

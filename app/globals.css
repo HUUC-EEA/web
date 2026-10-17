@@ -588,6 +588,35 @@ body {
   }
 }
 
+/* ===== 「关于我们」PCB 蚀刻板：走线用 stroke-dashoffset 逐条「刻」出来 ===== */
+.pcb-trace {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pcb-node {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.pcb-word {
+  opacity: 0;
+  transition: opacity 1.2s ease 0.9s;
+}
+
+.pcb-etched .pcb-trace {
+  stroke-dashoffset: 0;
+}
+
+.pcb-etched .pcb-node {
+  opacity: 1;
+}
+
+.pcb-etched .pcb-word {
+  opacity: 1;
+}
+
 /* 深色滚动条 */
 ::-webkit-scrollbar {
   width: 6px;
@@ -606,5 +635,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .terminal-cursor {
     animation: none;
+  }
+  .pcb-trace,
+  .pcb-node,
+  .pcb-word {
+    transition: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
   }
 }
