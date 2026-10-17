@@ -43,31 +43,31 @@ export default function Navbar() {
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <nav className="w-full h-14 px-4 sm:px-8 flex items-center justify-between">
-        <Link href="#home" className="flex items-center gap-2.5 group focus:outline-none">
-          <span className="relative flex h-2.5 w-2.5">
+      <nav className="w-full h-16 sm:h-20 px-5 sm:px-10 flex items-center justify-between">
+        <Link href="#home" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none">
+          <span className="relative flex h-2.5 w-2.5 sm:h-3.5 sm:w-3.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38ef7d] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#38ef7d]" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 bg-[#38ef7d]" />
           </span>
-          <span className="font-pixel text-xs tracking-[1px] text-neutral-100 group-hover:text-white transition-colors">
+          <span className="font-pixel text-xs sm:text-2xl tracking-[1px] sm:tracking-[2px] text-neutral-100 group-hover:text-white transition-colors">
             河南城建学院电子爱好者协会
           </span>
-          <span className="font-pixel text-xs px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[1px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
+          <span className="font-pixel text-xs sm:text-2xl px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[1px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
             HUUCEEA
           </span>
         </Link>
 
         {/* 桌面导航 */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-pixel">
+        <div className="hidden lg:flex items-center gap-7 xl:gap-9 text-xs sm:text-2xl font-pixel">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="nav-item tracking-[1px] py-1">
-              <span className="text-xs text-[#38ef7d]/70 mr-1">{link.num}</span>
+            <a key={link.href} href={link.href} className="nav-item tracking-[1px] sm:tracking-[2px] py-1">
+              <span className="text-xs sm:text-2xl text-[#38ef7d]/70 mr-1.5">{link.num}</span>
               {link.label}
             </a>
           ))}
           <a
             href="#join"
-            className="join-cta-btn text-xs tracking-[1px] px-3.5 py-1.5 rounded"
+            className="join-cta-btn text-xs sm:text-2xl tracking-[1px] sm:tracking-[2px] px-3.5 sm:px-5 py-1.5 sm:py-2 rounded"
           >
             + 加入我们
           </a>
@@ -78,7 +78,7 @@ export default function Navbar() {
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="切换菜单"
           aria-expanded={menuOpen}
-          className="md:hidden w-10 h-10 flex items-center justify-center text-neutral-300"
+          className="lg:hidden w-10 h-10 flex items-center justify-center text-neutral-300"
         >
           <div className="space-y-1.5">
             <span
@@ -102,11 +102,11 @@ export default function Navbar() {
 
       {/* 移动端抽屉菜单 */}
       <div
-        className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           menuOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 pb-4 pt-1 flex flex-col gap-1 font-pixel text-xs tracking-[1px]">
+        <div className="px-4 pb-4 pt-1 flex flex-col gap-1 font-pixel text-2xl tracking-[2px]">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -114,7 +114,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               className="px-4 py-2.5 rounded text-neutral-400 hover:text-[#38ef7d] hover:bg-[#38ef7d]/5 transition-colors"
             >
-              <span className="text-xs text-[#38ef7d]/70 mr-2">{link.num}</span>
+              <span className="text-2xl text-[#38ef7d]/70 mr-2">{link.num}</span>
               {link.label}
             </a>
           ))}

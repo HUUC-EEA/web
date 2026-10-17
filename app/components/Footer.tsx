@@ -21,26 +21,48 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-12 gap-y-2 font-mono text-[11px] sm:text-xs">
-            <span className="text-neutral-600">
-              QQ: <strong className="text-neutral-300">246625562</strong>
-            </span>
-            <span className="text-neutral-600">
-              MAIL: <strong className="text-neutral-300">待填写</strong>
-            </span>
-            <span className="text-neutral-600">
-              ADDR: <strong className="font-cn text-neutral-300">河南城建学院电气工程学院</strong>
-            </span>
-            <span className="text-neutral-600">
-              HOST: <strong className="text-[#38ef7d]">eea.huuc.top</strong>
-            </span>
+          <div className="flex flex-col gap-5 sm:gap-6">
+            <div className="grid grid-cols-2 gap-x-12 gap-y-2 font-mono text-[11px] sm:text-xs">
+              <span className="text-neutral-600">
+                QQ: <strong className="text-neutral-300">246625562</strong>
+              </span>
+              <span className="text-neutral-600">
+                MAIL: <strong className="text-neutral-300">mail.huuc.top</strong>
+              </span>
+              <span className="text-neutral-600">
+                ADDR: <strong className="font-cn text-neutral-300">河南城建学院电气工程学院</strong>
+              </span>
+              <span className="text-neutral-600">
+                HOST: <strong className="text-[#38ef7d]">eea.huuc.top</strong>
+              </span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] sm:text-xs text-neutral-600">
+              <span className="text-neutral-700">NAV:</span>
+              <a href="#home" className="font-cn hover:text-[#38ef7d] transition-colors">
+                首页
+              </a>
+              <a href="#neofetch" className="font-cn hover:text-[#38ef7d] transition-colors">
+                系统配置
+              </a>
+              <a href="#join" className="font-cn hover:text-[#38ef7d] transition-colors">
+                加入我们
+              </a>
+              <span className="text-neutral-800">|</span>
+              <span className="font-cn">招新咨询请加 QQ 群</span>
+            </div>
           </div>
         </div>
 
         <div className="mt-6 pt-4 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[11px] text-neutral-600">
           <span>© 2026 HUUC-EAA · ALL RIGHTS RESERVED</span>
-          <span>
-            STATUS: <strong className="text-[#00f5d4]">ACTIVE_ONLINE</strong>
+          <span className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <span>
+              BUILT_WITH: <strong className="text-neutral-500">Next.js 16 · Tailwind CSS 4</strong>
+            </span>
+            <span>
+              STATUS: <strong className="text-[#00f5d4]">ACTIVE_ONLINE</strong>
+            </span>
           </span>
         </div>
       </div>

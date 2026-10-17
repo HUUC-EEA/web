@@ -1,5 +1,6 @@
 import SnapSection from "./components/SnapSection";
 import HeroTerminal from "./components/HeroTerminal";
+import NeofetchTerminal from "./components/NeofetchTerminal";
 
 export default function Home() {
   return (
@@ -7,6 +8,11 @@ export default function Home() {
       {/* 首页：终端 Hero（串口引导 + ASCII 星球 + HUUC-EAA 标题） */}
       <SnapSection id="home">
         <HeroTerminal />
+      </SnapSection>
+
+      {/* 系统配置：仿 Linux Konsole 的 neofetch 输出，滚动到此时逐字打出 */}
+      <SnapSection id="neofetch">
+        <NeofetchTerminal />
       </SnapSection>
 
       {/* 加入我们：终端指令风格 CTA */}

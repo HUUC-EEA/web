@@ -226,6 +226,333 @@ body {
   will-change: transform, color;
 }
 
+/* ===== 第二屏：仿 Linux KDE Konsole + neofetch 系统配置模块 ===== */
+.linux-terminal-window {
+  width: 100%;
+  max-width: 1080px;
+  background-color: #000000;
+  border: 1px solid #3b4048;
+  border-radius: 6px;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kde-titlebar {
+  height: 32px;
+  background: linear-gradient(180deg, #2d3139 0%, #262930 100%);
+  border-bottom: 1px solid #1b1e23;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  user-select: none;
+}
+
+.kde-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 90px;
+}
+
+.kde-app-icon {
+  width: 16px;
+  height: 16px;
+  background-color: #1d2025;
+  border: 1px solid #58606e;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #9cd8ff;
+  line-height: 1;
+}
+
+.kde-window-title {
+  font-size: 12px;
+  color: #d8dee9;
+  font-family: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei",
+    sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-align: center;
+  flex: 1;
+}
+
+.kde-window-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 90px;
+  justify-content: flex-end;
+}
+
+.kde-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bfc7d5;
+  font-size: 11px;
+  cursor: default;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.kde-btn:hover {
+  background-color: #3b4252;
+  color: #ffffff;
+}
+
+.kde-btn.close:hover {
+  background-color: #e05260;
+  color: #ffffff;
+}
+
+.kde-menubar {
+  height: 25px;
+  background-color: #21242b;
+  border-bottom: 1px solid #16181d;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 16px;
+  font-size: 11.5px;
+  color: #c0c8d6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+.kde-menubar span {
+  cursor: default;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.kde-menubar span:hover {
+  background-color: #323742;
+  color: #ffffff;
+}
+
+.terminal-viewport {
+  background-color: #000000;
+  padding: 64px 72px 72px 72px;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neofetch-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 54px;
+  width: auto;
+}
+
+.logo-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ascii-art {
+  font-family: "JetBrains Mono Variable", Consolas, "Courier New", monospace;
+  font-size: 13.5px;
+  line-height: 15px;
+  letter-spacing: 0.4px;
+  white-space: pre;
+  user-select: text;
+  font-weight: 700;
+  margin: 0;
+}
+
+.info-column {
+  font-size: 13px;
+  line-height: 1.48;
+  color: #e5e9f0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 打字动画开始前先隐藏，避免整段文字闪现 */
+.info-column.nf-pending {
+  visibility: hidden;
+}
+
+.info-header {
+  margin-bottom: 2px;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.info-header .user,
+.info-header .host {
+  color: #9be2ff;
+}
+
+.info-header .at {
+  color: #d8dee9;
+  font-weight: 400;
+}
+
+.info-separator {
+  color: #8892a0;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.info-list li {
+  display: flex;
+  align-items: baseline;
+}
+
+.info-key {
+  color: #9be2ff;
+  font-weight: 700;
+}
+
+.info-colon {
+  color: #d8dee9;
+  margin-right: 7px;
+  font-weight: 400;
+}
+
+.info-val {
+  color: #edf2f7;
+  font-weight: 400;
+}
+
+.info-val-cn {
+  color: #ffffff;
+  font-family: "Noto Sans SC Variable", "JetBrains Mono Variable", monospace;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.color-palette {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.palette-row {
+  display: flex;
+}
+
+.swatch {
+  width: 26px;
+  height: 18px;
+  display: inline-block;
+}
+
+.s-0 {
+  background-color: #23272e;
+}
+.s-1 {
+  background-color: #d46a6a;
+}
+.s-2 {
+  background-color: #70c489;
+}
+.s-3 {
+  background-color: #dba86c;
+}
+.s-4 {
+  background-color: #69a7e0;
+}
+.s-5 {
+  background-color: #bd7ec9;
+}
+.s-6 {
+  background-color: #6bc4c9;
+}
+.s-7 {
+  background-color: #b8c0cc;
+}
+.s-8 {
+  background-color: #5a6270;
+}
+.s-9 {
+  background-color: #ff9494;
+}
+.s-10 {
+  background-color: #9df0b5;
+}
+.s-11 {
+  background-color: #ffe08c;
+}
+.s-12 {
+  background-color: #9be2ff;
+}
+.s-13 {
+  background-color: #eeb2ff;
+}
+.s-14 {
+  background-color: #a3f7f7;
+}
+.s-15 {
+  background-color: #ffffff;
+}
+
+/* 站点适配：窗口放不下左右两栏时改为上下堆叠 */
+@media (max-width: 1100px) {
+  .terminal-viewport {
+    padding: 40px 24px;
+    min-height: 0;
+  }
+  .neofetch-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  .info-column {
+    white-space: normal;
+  }
+}
+
+/* 站点适配：窄屏缩小点阵 Logo 与字号，避免横向溢出 */
+@media (max-width: 640px) {
+  .ascii-art {
+    font-size: 6.8px;
+    line-height: 7.8px;
+    letter-spacing: 0.2px;
+    font-weight: 500;
+  }
+  .info-column {
+    font-size: 11px;
+  }
+  .info-header {
+    font-size: 11.5px;
+  }
+  .swatch {
+    width: 20px;
+    height: 14px;
+  }
+  .kde-menubar {
+    gap: 10px;
+    font-size: 10.5px;
+  }
+}
+
 /* 深色滚动条 */
 ::-webkit-scrollbar {
   width: 6px;
