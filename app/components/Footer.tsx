@@ -1,57 +1,47 @@
-import Image from "next/image";
-
 export default function Footer() {
   return (
-    <footer className="snap-start bg-navy text-white">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
-          <div className="space-y-3">
-            <Image
-              src="/logo-full.jpg"
-              alt="电子爱好者协会 Logo"
-              width={320}
-              height={280}
-              className="w-48 sm:w-60 h-auto rounded-2xl"
-            />
-            <p className="text-xs text-white/50 max-w-xs leading-relaxed">
+    <footer className="snap-start relative z-30 w-full border-t border-neutral-900 bg-[#050706]/95">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38ef7d] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#38ef7d]" />
+              </span>
+              <span className="font-cn text-sm font-medium tracking-wider text-neutral-200">
+                河南城建学院电子爱好者协会
+              </span>
+              <span className="font-mono text-[11px] font-semibold px-1.5 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-widest">
+                HUUCEEA
+              </span>
+            </div>
+            <p className="font-cn text-xs text-neutral-500 tracking-wide">
               电子数码爱好者校园聚集地
             </p>
           </div>
 
-          <div className="flex gap-16 text-sm">
-            <div className="space-y-2.5">
-              <p className="text-xs text-white/40 font-medium tracking-wider">
-                导航
-              </p>
-              <a href="#home" className="block text-white/70 hover:text-white transition-colors text-xs">
-                首页
-              </a>
-              <a href="#projects" className="block text-white/70 hover:text-white transition-colors text-xs">
-                社团项目
-              </a>
-              <a href="#join" className="block text-white/70 hover:text-white transition-colors text-xs">
-                加入我们
-              </a>
-              <a href="#about" className="block text-white/70 hover:text-white transition-colors text-xs">
-                关于我们
-              </a>
-            </div>
-
-            <div className="space-y-2.5">
-              <p className="text-xs text-white/40 font-medium tracking-wider">
-                联系
-              </p>
-              <p className="text-white/70 text-xs">QQ 群：246625562</p>
-              <p className="text-white/70 text-xs">邮箱：待填写</p>
-              <p className="text-white/70 text-xs">地点：河南城建学院电气工程学院</p>
-              <p className="text-white/70 text-xs">域名：eea.huuc.top</p>
-            </div>
+          <div className="grid grid-cols-2 gap-x-12 gap-y-2 font-mono text-[11px] sm:text-xs">
+            <span className="text-neutral-600">
+              QQ: <strong className="text-neutral-300">246625562</strong>
+            </span>
+            <span className="text-neutral-600">
+              MAIL: <strong className="text-neutral-300">待填写</strong>
+            </span>
+            <span className="text-neutral-600">
+              ADDR: <strong className="font-cn text-neutral-300">河南城建学院电气工程学院</strong>
+            </span>
+            <span className="text-neutral-600">
+              HOST: <strong className="text-[#38ef7d]">eea.huuc.top</strong>
+            </span>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-white/40">
-          <p>河南城建学院 · 电子爱好者协会</p>
-          <p className="font-mono">© 2026 EEA · HUUC · eea.huuc.top</p>
+        <div className="mt-6 pt-4 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[11px] text-neutral-600">
+          <span>© 2026 HUUC-EAA · ALL RIGHTS RESERVED</span>
+          <span>
+            STATUS: <strong className="text-[#00f5d4]">ACTIVE_ONLINE</strong>
+          </span>
         </div>
       </div>
     </footer>
