@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/noto-sans-sc";
+import "@fontsource/press-start-2p";
+import "@fontsource/silkscreen";
+import "@fontsource/vt323";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import TerminalBackdrop from "./components/TerminalBackdrop";

@@ -49,25 +49,25 @@ export default function Navbar() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38ef7d] opacity-75" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#38ef7d]" />
           </span>
-          <span className="font-cn text-sm sm:text-base font-medium tracking-wider text-neutral-100 group-hover:text-white transition-colors">
+          <span className="font-pixel text-xs tracking-[1px] text-neutral-100 group-hover:text-white transition-colors">
             河南城建学院电子爱好者协会
           </span>
-          <span className="font-mono text-xs sm:text-sm font-semibold px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-widest shadow-[0_0_10px_rgba(56,239,125,0.15)]">
+          <span className="font-pixel text-xs px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[1px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
             HUUCEEA
           </span>
         </Link>
 
         {/* 桌面导航 */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-7 text-xs sm:text-sm font-cn">
+        <div className="hidden md:flex items-center gap-6 lg:gap-7 text-xs font-pixel">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="nav-item font-medium tracking-wider py-1">
-              <span className="font-mono text-[11px] text-[#38ef7d]/70 mr-1">{link.num}</span>
+            <a key={link.href} href={link.href} className="nav-item tracking-[1px] py-1">
+              <span className="text-xs text-[#38ef7d]/70 mr-1">{link.num}</span>
               {link.label}
             </a>
           ))}
           <a
             href="#join"
-            className="join-cta-btn font-cn font-semibold tracking-wider px-3.5 py-1.5 rounded"
+            className="join-cta-btn text-xs tracking-[1px] px-3.5 py-1.5 rounded"
           >
             + 加入我们
           </a>
@@ -106,7 +106,7 @@ export default function Navbar() {
           menuOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 pb-4 pt-1 flex flex-col gap-1 font-cn text-sm">
+        <div className="px-4 pb-4 pt-1 flex flex-col gap-1 font-pixel text-xs tracking-[1px]">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -114,7 +114,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               className="px-4 py-2.5 rounded text-neutral-400 hover:text-[#38ef7d] hover:bg-[#38ef7d]/5 transition-colors"
             >
-              <span className="font-mono text-[11px] text-[#38ef7d]/70 mr-2">{link.num}</span>
+              <span className="text-xs text-[#38ef7d]/70 mr-2">{link.num}</span>
               {link.label}
             </a>
           ))}

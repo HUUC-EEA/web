@@ -390,16 +390,6 @@ export default function HeroTerminal() {
           </h2>
         </div>
       </div>
-
-      {/* 滚轮下翻提示 */}
-      <a
-        href="#join"
-        className="scroll-hint-anim absolute bottom-3.5 flex flex-col items-center gap-1 text-[11px] sm:text-xs font-mono text-neutral-500 hover:text-[#38ef7d] transition-colors"
-      >
-        <span className="tracking-widest">
-          ▼ SCROLL · <span className="font-cn">加入我们</span>
-        </span>
-      </a>
     </div>
   );
 }
