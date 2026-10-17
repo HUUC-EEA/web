@@ -4,6 +4,8 @@ import "@fontsource-variable/noto-sans-sc";
 import "@fontsource/press-start-2p";
 import "@fontsource/silkscreen";
 import "@fontsource/vt323";
+import "@fontsource/share-tech-mono";
+import "./fonts/smiley-sans.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import TerminalBackdrop from "./components/TerminalBackdrop";

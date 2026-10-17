@@ -1,3 +1,5 @@
+import { JOIN_URL } from "../links";
+
 export default function Footer() {
   return (
     <footer className="snap-start relative z-30 w-full border-t border-neutral-900 bg-[#050706]/95">
@@ -9,7 +11,7 @@ export default function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38ef7d] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#38ef7d]" />
               </span>
-              <span className="font-cn text-sm font-medium tracking-wider text-neutral-200">
+              <span className="font-display text-base tracking-wider text-neutral-100">
                 河南城建学院电子爱好者协会
               </span>
               <span className="font-mono text-[11px] font-semibold px-1.5 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-widest">
@@ -27,7 +29,7 @@ export default function Footer() {
                 QQ: <strong className="text-neutral-300">246625562</strong>
               </span>
               <span className="text-neutral-600">
-                MAIL: <strong className="text-neutral-300">mail.huuc.top</strong>
+                MAIL: <strong className="text-neutral-300">eea@huuc.top</strong>
               </span>
               <span className="text-neutral-600">
                 ADDR: <strong className="font-cn text-neutral-300">河南城建学院电气工程学院</strong>
@@ -42,10 +44,18 @@ export default function Footer() {
               <a href="#home" className="font-cn hover:text-[#38ef7d] transition-colors">
                 首页
               </a>
-              <a href="#neofetch" className="font-cn hover:text-[#38ef7d] transition-colors">
-                系统配置
+              <a href="#about" className="font-cn hover:text-[#38ef7d] transition-colors">
+                关于我们
               </a>
-              <a href="#join" className="font-cn hover:text-[#38ef7d] transition-colors">
+              <a href="#repo" className="font-cn hover:text-[#38ef7d] transition-colors">
+                社团仓库
+              </a>
+              <a
+                href={JOIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-cn hover:text-[#38ef7d] transition-colors"
+              >
                 加入我们
               </a>
               <span className="text-neutral-800">|</span>
@@ -63,6 +73,15 @@ export default function Footer() {
             <span>
               STATUS: <strong className="text-[#00f5d4]">ACTIVE_ONLINE</strong>
             </span>
+          </span>
+        </div>
+
+        <div className="mt-3 flex flex-col sm:flex-row items-center justify-between gap-1 font-mono text-[11px] text-neutral-600">
+          <span className="font-cn">
+            网页制作人 <strong className="text-neutral-400">by-ShanyJin</strong>
+          </span>
+          <span>
+            MADE_BY: <strong className="text-[#38ef7d]/80">ShanyJin</strong>
           </span>
         </div>
       </div>

@@ -383,8 +383,8 @@ export default function HeroTerminal() {
           aria-hidden="true"
           className="schematic-pre font-mono text-neutral-500 mt-3 sm:mt-4 whitespace-pre tracking-tight"
         />
-        <div className="font-cn mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 min-h-[2.25rem]">
-          <h2 className="text-lg sm:text-2xl md:text-3xl font-medium tracking-[0.38em] pl-[0.38em] text-neutral-100 title-glow flex items-center">
+        <div className="font-display mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 min-h-[2.25rem]">
+          <h2 className="text-lg sm:text-2xl md:text-3xl tracking-[0.38em] pl-[0.38em] text-neutral-100 title-glow flex items-center">
             <span ref={subtitleRef} />
             <span className="terminal-cursor ml-1 text-base sm:text-xl">█</span>
           </h2>

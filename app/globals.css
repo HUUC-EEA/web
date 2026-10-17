@@ -38,6 +38,22 @@ body {
     sans-serif;
 }
 
+/* 中文标题：得意黑 Smiley Sans Oblique（SIL OFL 1.1），窄斜黑体，
+   承担"极客海报"气质；按 unicode-range 分片，浏览器只下载用到的分片 */
+.font-display {
+  font-family: "Smiley Sans Oblique", "Noto Sans SC Variable", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* 英文终端标注：Share Tech Mono，用于 REPO / ABOUT_US 这类小型标签 */
+.font-tech {
+  font-family: "Share Tech Mono", "JetBrains Mono Variable", ui-monospace,
+    monospace;
+  font-weight: 400;
+}
+
 /* 像素字体（融合像素 Fusion Pixel，SIL OFL 1.1）。
    中文子集由 `npm run fonts:subset` 生成，只含站点用到的字符，约 15KB */
 @font-face {
