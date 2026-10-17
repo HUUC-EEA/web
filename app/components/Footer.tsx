@@ -76,12 +76,9 @@ export default function Footer() {
           </span>
         </div>
 
-        <div className="mt-3 flex flex-col sm:flex-row items-center justify-between gap-1 font-mono text-[11px] text-neutral-600">
+        <div className="mt-3 font-mono text-[11px] text-neutral-600 text-center sm:text-left">
           <span className="font-cn">
             网页制作人 <strong className="text-neutral-400">by-ShanyJin</strong>
-          </span>
-          <span>
-            MADE_BY: <strong className="text-[#38ef7d]/80">ShanyJin</strong>
           </span>
         </div>
       </div>

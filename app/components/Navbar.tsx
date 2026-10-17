@@ -57,16 +57,16 @@ export default function Navbar() {
           <span className="font-pixel text-xs sm:text-2xl tracking-[1px] sm:tracking-[2px] text-neutral-100 group-hover:text-white transition-colors">
             河南城建学院电子爱好者协会
           </span>
-          <span className="hidden xl:inline-flex font-pixel text-2xl px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[2px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
+          <span className="hidden lg:inline-flex font-pixel text-2xl px-2 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-[2px] shadow-[0_0_10px_rgba(56,239,125,0.15)]">
             HUUCEEA
           </span>
         </Link>
 
-        {/* 桌面导航 */}
-        <div className="hidden lg:flex items-center gap-4 xl:gap-6 font-pixel text-2xl">
+        {/* 桌面导航：菜单项用像素字体原生 12px，与 24px 品牌名形成层级差 */}
+        <div className="hidden lg:flex items-center gap-5 xl:gap-7 font-pixel text-xs">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="nav-item tracking-[2px] py-1">
-              <span className="text-2xl text-[#38ef7d]/70 mr-1.5">{link.num}</span>
+            <a key={link.href} href={link.href} className="nav-item tracking-[1px] py-1">
+              <span className="text-[#38ef7d]/70 mr-1">{link.num}</span>
               {link.label}
             </a>
           ))}
@@ -74,7 +74,7 @@ export default function Navbar() {
             href={JOIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="join-cta-btn text-2xl tracking-[2px] px-3 py-1 rounded"
+            className="join-cta-btn text-xs tracking-[1px] px-3 py-1.5 rounded"
           >
             + 加入我们
           </a>
