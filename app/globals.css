@@ -17,15 +17,25 @@ html {
   scroll-snap-type: y mandatory;
 }
 
-/* 触屏：吸附改由 MobilePager 接管（mandatory + 惯性会一次连跳数屏），一屏用 dvh 对齐真实视口 */
-@media (pointer: coarse) {
+/* 甩动也不跳过中间区块：桌面端与「触屏但脚本没跑起来」时的兜底 */
+section[data-page] {
+  scroll-snap-stop: always;
+}
+
+/* 触屏：一屏用 dvh 对齐真实视口，并关掉下拉刷新；
+   MobilePager 挂载后打上 pager-active，吸附交给 JS 逐屏翻页 */
+@media (hover: none) {
   html {
-    scroll-snap-type: none;
+    overscroll-behavior-y: none;
   }
 
   section[data-page] {
     min-height: 100dvh;
   }
+}
+
+html.pager-active {
+  scroll-snap-type: none;
 }
 
 body {
