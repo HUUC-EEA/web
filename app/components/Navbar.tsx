@@ -51,7 +51,7 @@ export default function Navbar() {
       <nav className="w-full h-14 sm:h-16 px-4 sm:px-6 flex items-center justify-between gap-4">
         <Link href="#home" className="flex items-center gap-2 sm:gap-2.5 group focus:outline-none">
           <span className="font-pixel text-xs sm:text-base px-2 py-0.5 rounded bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/40 tracking-[1px] shadow-[0_0_10px_rgba(88,166,255,0.15)]">
-            HUUCEEA
+            HUUC-EEA
           </span>
           <span className="font-pixel text-base sm:text-xl tracking-[1px] text-neutral-100 group-hover:text-white transition-colors">
             电子爱好者协会

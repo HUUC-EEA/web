@@ -17,6 +17,17 @@ html {
   scroll-snap-type: y mandatory;
 }
 
+/* 触屏：吸附改由 MobilePager 接管（mandatory + 惯性会一次连跳数屏），一屏用 dvh 对齐真实视口 */
+@media (pointer: coarse) {
+  html {
+    scroll-snap-type: none;
+  }
+
+  section[data-page] {
+    min-height: 100dvh;
+  }
+}
+
 body {
   background-color: #050706;
   color: #d4d4d4;

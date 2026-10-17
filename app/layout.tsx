@@ -5,13 +5,14 @@ import "@fontsource/share-tech-mono";
 import "./fonts/smiley-sans.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MobilePager from "./components/MobilePager";
 import TerminalBackdrop from "./components/TerminalBackdrop";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HUUC-EAA | 河南城建学院电子爱好者协会",
+  title: "HUUC-EEA | 河南城建学院电子爱好者协会",
   description:
-    "河南城建学院电子爱好者协会（HUUC-EAA）——电子数码爱好者校园聚集地。嵌入式、电路与开源硬件的极客实验室。",
+    "河南城建学院电子爱好者协会（HUUC-EEA）——电子数码爱好者校园聚集地。嵌入式、电路与开源硬件的极客实验室。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-term text-neutral-300">
         <TerminalBackdrop />
         <Navbar />
+        <MobilePager />
         {children}
         <Footer />
       </body>

@@ -24,11 +24,11 @@ const PLANET_ASCII = [
 ];
 
 const TITLE_ASCII = [
-  " _   _  _   _  _   _   ____        _____    _       _    ",
-  "| | | || | | || | | | / ___|      | ____|  / \\     / \\   ",
-  "| |_| || | | || | | || |    _____ |  _|   / _ \\   / _ \\  ",
-  "|  _  || |_| || |_| || |___|_____|| |___ / ___ \\ / ___ \\ ",
-  "|_| |_| \\___/  \\___/  \\____|      |_____/_/   \\_\\/_/   \\_\\",
+  " _   _  _   _  _   _   ____         _____  _____    _   ",
+  "| | | || | | || | | | / ___|       | ____|| ____|  / \\  ",
+  "| |_| || | | || | | || |     ----- |  _|  |  _|   / _ \\ ",
+  "|  _  || |_| || |_| || |___        | |___ | |___ / ___ \\",
+  "|_| |_| \\___/  \\___/  \\____|       |_____||_____|/_/ \\_\\",
 ];
 
 const SCHEMATIC_LINE =
@@ -52,9 +52,9 @@ type CharNode = {
 };
 
 /**
- * 终端 Hero（与示例 HTML 1:1 对齐）：
- * 串口引导行 → ASCII 星环行星 → HUUC-EAA 主标题 → 原理图分割线
+ * 终端 Hero：串口引导行 → ASCII 星环行星 → HUUC-EEA 主标题 → 原理图分割线
  * → 中文副标题逐字打印；鼠标视差 + 字符级电磁探针排斥交互。
+ * ASCII 与文字全部由服务端直出，字符网格与探针只在有鼠标的设备上构建。
  */
 export default function HeroTerminal() {
   const uartRef = useRef<HTMLSpanElement>(null);
@@ -69,16 +69,50 @@ export default function HeroTerminal() {
     const subtitleEl = subtitleRef.current;
     if (!uartEl || !planetLayer || !titleLayer || !subtitleEl) return;
 
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    /** 逐字打印只改 textContent，不动 DOM 结构 */
+    const typeText = (
+      el: HTMLElement,
+      text: string,
+      start: number,
+      step: number
+    ) => {
+      el.textContent = "";
+      for (let i = 1; i <= text.length; i++) {
+        timers.push(
+          setTimeout(() => {
+            el.textContent = text.slice(0, i);
+          }, start + i * step)
+        );
+      }
+    };
+
+    /** 只清理打字定时器 */
+    const lightCleanup = () => timers.forEach(clearTimeout);
+
+    // 触屏既没有鼠标探针可用，却要替 600+ 个 span 买单：建网格、逐个量坐标、每帧遍历
+    if (!window.matchMedia("(hover: hover)").matches) {
+      if (!reduced) {
+        typeText(uartEl, UART_HEADER_TEXT, 0, 7);
+        typeText(
+          subtitleEl,
+          CHINESE_SUBTITLE,
+          UART_HEADER_TEXT.length * 7 + 260,
+          75
+        );
+      }
+      return lightCleanup;
+    }
+
     const planetPre = planetLayer.querySelector("pre");
     const titlePre = titleLayer.querySelector("pre");
     const schematicPre = titleLayer.querySelectorAll("pre")[1];
     if (!planetPre || !titlePre || !schematicPre) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches;
-
     const charNodes: CharNode[] = [];
-    const timers: ReturnType<typeof setTimeout>[] = [];
     const mouse = {
       x: -9999,
       y: -9999,
@@ -185,18 +219,11 @@ export default function HeroTerminal() {
 
     /** 串口终端打字机序列（阶段与节奏 1:1 对齐原版） */
     const runTypewriter = () => {
-      uartEl.textContent = "";
       subtitleEl.textContent = "";
       let delay = 40;
 
-      for (let i = 1; i <= UART_HEADER_TEXT.length; i++) {
-        timers.push(
-          setTimeout(() => {
-            uartEl.textContent = UART_HEADER_TEXT.slice(0, i);
-          }, delay)
-        );
-        delay += 7;
-      }
+      typeText(uartEl, UART_HEADER_TEXT, delay - 7, 7);
+      delay += UART_HEADER_TEXT.length * 7;
 
       delay += 45;
 
@@ -374,7 +401,9 @@ export default function HeroTerminal() {
       {/* 串口状态引导行 */}
       <div className="mb-2.5 flex items-center gap-2 text-[11px] sm:text-xs text-neutral-500 font-mono tracking-wider">
         <span className="text-[#38ef7d]">$</span>
-        <span ref={uartRef} className="text-neutral-400" />
+        <span ref={uartRef} className="text-neutral-400">
+          {UART_HEADER_TEXT}
+        </span>
       </div>
 
       {/* ASCII 星环行星 */}
@@ -382,23 +411,29 @@ export default function HeroTerminal() {
         <pre
           aria-hidden="true"
           className="planet-pre font-mono text-neutral-300 ascii-glow whitespace-pre text-left"
-        />
+        >
+          {PLANET_ASCII.join("\n")}
+        </pre>
       </div>
 
       {/* 主标题 + 原理图分割线 + 中文副标题 */}
       <div ref={titleLayerRef} className="flex flex-col items-center">
-        <h1 className="sr-only">河南城建学院电子爱好者协会 HUUC-EAA</h1>
+        <h1 className="sr-only">河南城建学院电子爱好者协会 HUUC-EEA</h1>
         <pre
           aria-hidden="true"
           className="title-pre font-mono font-bold text-white title-glow whitespace-pre text-left"
-        />
+        >
+          {TITLE_ASCII.join("\n")}
+        </pre>
         <pre
           aria-hidden="true"
           className="schematic-pre font-mono text-neutral-500 mt-3 sm:mt-4 whitespace-pre tracking-tight"
-        />
+        >
+          {SCHEMATIC_LINE}
+        </pre>
         <div className="font-display mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 min-h-[2.25rem]">
           <h2 className="text-lg sm:text-2xl md:text-3xl tracking-[0.38em] pl-[0.38em] text-neutral-100 title-glow flex items-center">
-            <span ref={subtitleRef} />
+            <span ref={subtitleRef}>{CHINESE_SUBTITLE}</span>
             <span className="terminal-cursor ml-1 text-base sm:text-xl">█</span>
           </h2>
         </div>

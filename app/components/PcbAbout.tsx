@@ -168,7 +168,7 @@ export default function PcbAbout() {
         viewBox={`0 0 ${W} ${H}`}
         className="w-full h-auto block"
         role="img"
-        aria-label="HUUC-EAA 电路板艺术图"
+        aria-label="HUUC-EEA 电路板艺术图"
       >
         {/* 基板与安装孔 */}
         <rect x="2" y="2" width={W - 4} height={H - 4} rx="10" fill="#08120c" stroke="#38ef7d" strokeOpacity="0.35" />
@@ -260,7 +260,7 @@ export default function PcbAbout() {
             strokeWidth="1"
             letterSpacing="6"
           >
-            HUUC-EAA
+            HUUC-EEA
           </text>
           <text
             x={W / 2}
@@ -274,7 +274,7 @@ export default function PcbAbout() {
             strokeWidth="1.2"
             letterSpacing="6"
           >
-            HUUC-EAA
+            HUUC-EEA
           </text>
           <text x={W / 2} y={244} textAnchor="middle" className="font-tech" fontSize="11" fill="#9ca3af" fillOpacity="0.75" letterSpacing="3">
             REV 2.0 · LAB 2A109 · HUUC

@@ -40,7 +40,7 @@ const REPO_ENTRIES = [
 export default function Home() {
   return (
     <main className="flex-grow">
-      {/* 首页：终端 Hero（串口引导 + ASCII 星球 + HUUC-EAA 标题） */}
+      {/* 首页：终端 Hero（串口引导 + ASCII 星球 + HUUC-EEA 标题） */}
       <SnapSection id="home">
         <HeroTerminal />
       </SnapSection>

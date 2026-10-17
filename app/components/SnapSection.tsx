@@ -65,6 +65,7 @@ export default function SnapSection({ id, children, className }: SnapSectionProp
     <section
       ref={sectionRef}
       id={id}
+      data-page=""
       className={`snap-start min-h-screen flex items-center scroll-mt-0 ${className ?? ""}`}
     >
       <div ref={contentRef} className="w-full will-change-[opacity,transform,filter]">

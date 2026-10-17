@@ -2,7 +2,7 @@ import { JOIN_URL } from "../links";
 
 export default function Footer() {
   return (
-    <footer className="snap-start relative z-30 w-full border-t border-neutral-900 bg-[#050706]/95">
+    <footer data-page="" className="snap-start relative z-30 w-full border-t border-neutral-900 bg-[#050706]/95">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="space-y-2">
@@ -15,7 +15,7 @@ export default function Footer() {
                 河南城建学院电子爱好者协会
               </span>
               <span className="font-mono text-[11px] font-semibold px-1.5 py-0.5 rounded bg-[#38ef7d]/10 text-[#38ef7d] border border-[#38ef7d]/40 tracking-widest">
-                HUUCEEA
+                HUUC-EEA
               </span>
             </div>
             <p className="font-cn text-xs text-neutral-500 tracking-wide">
@@ -65,7 +65,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-6 pt-4 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[11px] text-neutral-600">
-          <span>© 2026 HUUC-EAA · ALL RIGHTS RESERVED</span>
+          <span>© 2026 HUUC-EEA · ALL RIGHTS RESERVED</span>
           <span className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <span>
               BUILT_WITH: <strong className="text-neutral-500">Next.js 16 · Tailwind CSS 4</strong>
