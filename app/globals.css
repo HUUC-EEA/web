@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-noto-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), "Courier New", monospace;
+  --font-sans: "Noto Sans SC Variable", -apple-system, BlinkMacSystemFont,
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* ASCII 网格必须落在真正的等宽字体上，否则字符画会错位 */
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "Cascadia Mono",
+    Consolas, "Courier New", monospace;
 
   /* 终端极客风配色 */
   --color-term: #050706; /* CRT 深黑底 */
@@ -19,7 +22,8 @@ body {
   color: #d4d4d4;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  font-family: var(--font-jetbrains-mono), var(--font-noto-sans), "Courier New",
+  font-family: "JetBrains Mono Variable", ui-monospace, "Cascadia Mono",
+    Consolas, "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei",
     monospace;
 }
 
@@ -30,7 +34,7 @@ body {
 
 /* 中文段落使用 Noto Sans SC，保持等宽网格内的可读性 */
 .font-cn {
-  font-family: var(--font-noto-sans), "PingFang SC", "Microsoft YaHei",
+  font-family: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei",
     sans-serif;
 }
 

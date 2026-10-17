@@ -52,22 +52,20 @@ type CharNode = {
 };
 
 /**
- * 终端风格 Hero：串口引导行 → ASCII 星环行星 → HUUC-EAA 主标题
- * → 原理图分割线 → 中文副标题逐字打印，附带鼠标视差与字符级电磁探针交互。
+ * 终端 Hero（与示例 HTML 1:1 对齐）：
+ * 串口引导行 → ASCII 星环行星 → HUUC-EAA 主标题 → 原理图分割线
+ * → 中文副标题逐字打印；鼠标视差 + 字符级电磁探针排斥交互。
  */
 export default function HeroTerminal() {
-  const rootRef = useRef<HTMLDivElement>(null);
   const uartRef = useRef<HTMLSpanElement>(null);
-  const planetRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
+  const planetLayerRef = useRef<HTMLDivElement>(null);
+  const titleLayerRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
     const uartEl = uartRef.current;
-    const planetLayer = planetRef.current;
-    const titleLayer = titleRef.current;
+    const planetLayer = planetLayerRef.current;
+    const titleLayer = titleLayerRef.current;
     const subtitleEl = subtitleRef.current;
     if (!uartEl || !planetLayer || !titleLayer || !subtitleEl) return;
 
@@ -81,12 +79,20 @@ export default function HeroTerminal() {
 
     const charNodes: CharNode[] = [];
     const timers: ReturnType<typeof setTimeout>[] = [];
-    const mouse = { x: -9999, y: -9999, normX: 0, normY: 0, smoothX: 0, smoothY: 0, active: false };
+    const mouse = {
+      x: -9999,
+      y: -9999,
+      normX: 0,
+      normY: 0,
+      smoothX: 0,
+      smoothY: 0,
+      active: false,
+    };
     let raf = 0;
 
-    /** 构建多行 ASCII 的 DOM 字符节点，初始隐藏等待打字机点亮 */
+    /** 与原版一致：逐字符构建 span 网格，空格保留为文本节点 */
     const prepareAsciiGrid = (
-      container: HTMLPreElement,
+      container: Element,
       lines: string[],
       groupType: GroupType
     ) => {
@@ -115,7 +121,11 @@ export default function HeroTerminal() {
           let defaultColor = "#e5e5e5";
 
           if (groupType === "planet") {
-            defaultColor = isGeekTag ? "#38ef7d" : isCore ? "#ededed" : "#9a9a9a";
+            defaultColor = isGeekTag
+              ? "#38ef7d"
+              : isCore
+                ? "#ededed"
+                : "#9a9a9a";
           } else if (groupType === "title") {
             defaultColor = "#ffffff";
           } else {
@@ -148,7 +158,7 @@ export default function HeroTerminal() {
     const titleNodes = prepareAsciiGrid(titlePre, TITLE_ASCII, "title");
     const schematicNodes = prepareAsciiGrid(schematicPre, [SCHEMATIC_LINE], "schematic");
 
-    /** 缓存字符在文档坐标系中的基准位置（探针距离计算用） */
+    /** 缓存字符基准坐标（文档坐标系，探针距离计算用） */
     const cacheGridPositions = () => {
       for (const node of charNodes) {
         const rect = node.el.getBoundingClientRect();
@@ -157,13 +167,28 @@ export default function HeroTerminal() {
       }
     };
 
-    /** 串口终端打字机序列 */
+    /** 与原版一致的分批点亮（先闪绿再还原默认色） */
+    const revealBatch = (batch: CharNode[], restoreDelay: number) => {
+      batch.forEach((node) => {
+        node.el.style.visibility = "visible";
+        node.el.style.color = "#38ef7d";
+        node.revealed = true;
+      });
+      timers.push(
+        setTimeout(() => {
+          batch.forEach((node) => {
+            node.el.style.color = node.defaultColor;
+          });
+        }, restoreDelay)
+      );
+    };
+
+    /** 串口终端打字机序列（阶段与节奏 1:1 对齐原版） */
     const runTypewriter = () => {
       uartEl.textContent = "";
       subtitleEl.textContent = "";
       let delay = 40;
 
-      // 阶段 1：串口握手指令
       for (let i = 1; i <= UART_HEADER_TEXT.length; i++) {
         timers.push(
           setTimeout(() => {
@@ -175,40 +200,22 @@ export default function HeroTerminal() {
 
       delay += 45;
 
-      // 阶段 2：ASCII 星环行星分批点亮
-      const revealBatch = (batch: CharNode[]) => {
-        batch.forEach((node) => {
-          node.el.style.visibility = "visible";
-          node.el.style.color = "#38ef7d";
-          node.revealed = true;
-        });
-        timers.push(
-          setTimeout(() => {
-            batch.forEach((node) => {
-              node.el.style.color = node.defaultColor;
-            });
-          }, 45)
-        );
-      };
-
       for (let i = 0; i < planetNodes.length; i += 6) {
         const batch = planetNodes.slice(i, i + 6);
-        timers.push(setTimeout(() => revealBatch(batch), delay));
+        timers.push(setTimeout(() => revealBatch(batch, 45), delay));
         delay += 12;
       }
 
       delay += 70;
 
-      // 阶段 3：HUUC-EAA 主标题
       for (let i = 0; i < titleNodes.length; i += 5) {
         const batch = titleNodes.slice(i, i + 5);
-        timers.push(setTimeout(() => revealBatch(batch), delay));
+        timers.push(setTimeout(() => revealBatch(batch, 50), delay));
         delay += 13;
       }
 
       delay += 65;
 
-      // 阶段 4：原理图分割线
       for (let i = 0; i < schematicNodes.length; i += 3) {
         const batch = schematicNodes.slice(i, i + 3);
         timers.push(
@@ -224,7 +231,6 @@ export default function HeroTerminal() {
 
       delay += 80;
 
-      // 阶段 5：中文副标题逐字打印
       for (let i = 1; i <= CHINESE_SUBTITLE.length; i++) {
         timers.push(
           setTimeout(() => {
@@ -234,7 +240,11 @@ export default function HeroTerminal() {
       }
     };
 
-    /** 主循环：鼠标视差 + 字符级电磁探针排斥 */
+    /**
+     * 主循环：视差 + 电磁探针。
+     * 与原版一致：字符恢复逻辑每帧都会执行（不受鼠标是否活跃影响），
+     * 保证探针离开后乱码字符立即还原，ASCII 图案不会停留在损坏状态。
+     */
     const loop = () => {
       mouse.smoothX += (mouse.normX - mouse.smoothX) * 0.08;
       mouse.smoothY += (mouse.normY - mouse.smoothY) * 0.08;
@@ -242,21 +252,21 @@ export default function HeroTerminal() {
       planetLayer.style.transform = `translate3d(${(mouse.smoothX * 14).toFixed(2)}px, ${(mouse.smoothY * 10).toFixed(2)}px, 0)`;
       titleLayer.style.transform = `translate3d(${(mouse.smoothX * 6).toFixed(2)}px, ${(mouse.smoothY * 5).toFixed(2)}px, 0)`;
 
-      // 探针交互仅在本区块接近首屏时运行
       const heroVisible = window.scrollY < window.innerHeight * 0.5;
-      if (heroVisible && mouse.active) {
-        const probeRadius = 86;
-        const probeRadiusSq = probeRadius * probeRadius;
-        const mouseDocY = mouse.y + window.scrollY;
+      const probeRadius = 86;
+      const probeRadiusSq = probeRadius * probeRadius;
+      const probeActive = heroVisible && mouse.active;
+      const mouseDocY = mouse.y + window.scrollY;
 
-        for (let i = 0; i < charNodes.length; i++) {
-          const node = charNodes[i];
-          if (!node.revealed) continue;
+      for (let i = 0; i < charNodes.length; i++) {
+        const node = charNodes[i];
+        if (!node.revealed) continue;
 
-          let targetX = 0;
-          let targetY = 0;
-          let inProbeField = false;
+        let targetX = 0;
+        let targetY = 0;
+        let inProbeField = false;
 
+        if (probeActive) {
           const dx = node.baseX - mouse.x;
           const dy = node.baseY - mouseDocY;
           const distSq = dx * dx + dy * dy;
@@ -276,27 +286,28 @@ export default function HeroTerminal() {
                 GLITCH_CHARS[(i + node.glitchTick) % GLITCH_CHARS.length];
             }
           }
+        }
 
-          if (
-            !inProbeField &&
-            (node.el.textContent !== node.origChar ||
-              node.el.style.color !== node.defaultColor)
-          ) {
-            node.el.textContent = node.origChar;
-            node.el.style.color = node.defaultColor;
-            node.glitchTick = 0;
-          }
+        // 探针不在场内时立即还原字符与颜色（与原版行为一致）
+        if (
+          !inProbeField &&
+          (node.el.textContent !== node.origChar ||
+            node.el.style.color !== node.defaultColor)
+        ) {
+          node.el.textContent = node.origChar;
+          node.el.style.color = node.defaultColor;
+          node.glitchTick = 0;
+        }
 
-          node.curX += (targetX - node.curX) * 0.22;
-          node.curY += (targetY - node.curY) * 0.22;
+        node.curX += (targetX - node.curX) * 0.22;
+        node.curY += (targetY - node.curY) * 0.22;
 
-          if (Math.abs(node.curX) > 0.05 || Math.abs(node.curY) > 0.05) {
-            node.el.style.transform = `translate3d(${node.curX.toFixed(2)}px, ${node.curY.toFixed(2)}px, 0)`;
-          } else if (node.el.style.transform !== "") {
-            node.curX = 0;
-            node.curY = 0;
-            node.el.style.transform = "";
-          }
+        if (Math.abs(node.curX) > 0.05 || Math.abs(node.curY) > 0.05) {
+          node.el.style.transform = `translate3d(${node.curX.toFixed(2)}px, ${node.curY.toFixed(2)}px, 0)`;
+        } else if (node.el.style.transform !== "") {
+          node.curX = 0;
+          node.curY = 0;
+          node.el.style.transform = "";
         }
       }
 
@@ -346,15 +357,15 @@ export default function HeroTerminal() {
   }, []);
 
   return (
-    <div ref={rootRef} className="relative flex flex-col items-center justify-center px-4 text-center">
+    <div className="relative flex flex-col items-center justify-center px-4 text-center">
       {/* 串口状态引导行 */}
-      <div className="mb-2.5 flex items-center gap-2 text-[11px] sm:text-xs text-neutral-500 tracking-wider">
+      <div className="mb-2.5 flex items-center gap-2 text-[11px] sm:text-xs text-neutral-500 font-mono tracking-wider">
         <span className="text-[#38ef7d]">$</span>
         <span ref={uartRef} className="text-neutral-400" />
       </div>
 
       {/* ASCII 星环行星 */}
-      <div ref={planetRef} className="mb-2 sm:mb-3">
+      <div ref={planetLayerRef} className="mb-2 sm:mb-3">
         <pre
           aria-hidden="true"
           className="planet-pre font-mono text-neutral-300 ascii-glow whitespace-pre text-left"
@@ -362,7 +373,7 @@ export default function HeroTerminal() {
       </div>
 
       {/* 主标题 + 原理图分割线 + 中文副标题 */}
-      <div ref={titleRef} className="flex flex-col items-center">
+      <div ref={titleLayerRef} className="flex flex-col items-center">
         <h1 className="sr-only">河南城建学院电子爱好者协会 HUUC-EAA</h1>
         <pre
           aria-hidden="true"
@@ -372,7 +383,7 @@ export default function HeroTerminal() {
           aria-hidden="true"
           className="schematic-pre font-mono text-neutral-500 mt-3 sm:mt-4 whitespace-pre tracking-tight"
         />
-        <div className="font-cn mt-3 sm:mt-4 flex items-center justify-center gap-3 min-h-[2.25rem]">
+        <div className="font-cn mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 min-h-[2.25rem]">
           <h2 className="text-lg sm:text-2xl md:text-3xl font-medium tracking-[0.38em] pl-[0.38em] text-neutral-100 title-glow flex items-center">
             <span ref={subtitleRef} />
             <span className="terminal-cursor ml-1 text-base sm:text-xl">█</span>
@@ -381,11 +392,14 @@ export default function HeroTerminal() {
       </div>
 
       {/* 滚轮下翻提示 */}
-      <div className="scroll-hint-anim absolute bottom-4 flex flex-col items-center gap-1 text-[11px] sm:text-xs text-neutral-500">
+      <a
+        href="#join"
+        className="scroll-hint-anim absolute bottom-3.5 flex flex-col items-center gap-1 text-[11px] sm:text-xs font-mono text-neutral-500 hover:text-[#38ef7d] transition-colors"
+      >
         <span className="tracking-widest">
-          ▼ SCROLL · <span className="font-cn">关于我们</span>
+          ▼ SCROLL · <span className="font-cn">加入我们</span>
         </span>
-      </div>
+      </a>
     </div>
   );
 }

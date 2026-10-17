@@ -3,11 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const NAV_LINKS = [
-  { label: "首页", href: "#home", num: "01." },
-  { label: "关于我们", href: "#about", num: "02." },
-  { label: "社团项目", href: "#projects", num: "03." },
-];
+const NAV_LINKS = [{ label: "首页", href: "#home", num: "01." }];
 
 export default function Navbar() {
   const [hidden, setHidden] = useState(false);
@@ -127,7 +123,6 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
             className="px-4 py-2.5 rounded text-[#38ef7d] hover:bg-[#38ef7d]/5 transition-colors"
           >
-            <span className="font-mono text-[11px] text-[#38ef7d]/70 mr-2">04.</span>
             加入我们
           </a>
         </div>
